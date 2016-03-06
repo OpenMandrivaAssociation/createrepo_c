@@ -15,6 +15,7 @@ BuildRequires:	doxygen
 BuildRequires:	magic-devel
 BuildRequires:	zlib-devel
 BuildRequires:	bzip2-devel
+BuildRequires:	pkgconfig(bash-completion)
 BuildRequires:	pkgconfig(rpm)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(libcurl)
@@ -55,7 +56,7 @@ These development files are for easy manipulation with a repodata.
 
 %build
 %cmake -DPYTHON_DESIRED:str=3
-%make -C build
+%make
 
 %install
 %makeinstall_std -C build
