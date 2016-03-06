@@ -54,7 +54,7 @@ These development files are for easy manipulation with a repodata.
 %setup -q
 
 %build
-%cmake
+%cmake -DPYTHON_DESIRED:str=3
 %make -C build
 
 %install
