@@ -22,9 +22,9 @@ BuildRequires:	pkgconfig(expat)
 BuildRequires:	pkgconfig(liblzma)
 BuildRequires:	pkgconfig(sqlite3)
 BuildRequires:	pkgconfig(glib-2.0)
-BuildRequires:  pkgconfg(python)
-BuildRequires:  python-nose
-BuildRequires:  python-sphinx
+BuildRequires:	pkgconfig(python3)
+BuildRequires:	python-nose
+BuildRequires:	python-sphinx
 Requires:	%{libname} =  %{EVRD}
 
 %description
