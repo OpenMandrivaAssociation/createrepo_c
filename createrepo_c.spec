@@ -10,6 +10,7 @@ License:	GPLv2
 Group:		System/Configuration/Packaging
 URL:		https://github.com/rpm-software-management/createrepo_c
 Source0:	https://github.com/rpm-software-management/createrepo_c/archive/%{name}-%{version}.tar.gz
+Patch0:		createrepo_c-fix-cmake.patch
 BuildRequires:	cmake
 BuildRequires:	doxygen
 BuildRequires:	magic-devel
@@ -53,6 +54,7 @@ These development files are for easy manipulation with a repodata.
 
 %prep
 %setup -q
+%apply_patches
 
 %build
 %cmake -DPYTHON_DESIRED:str=3
