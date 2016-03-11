@@ -1,30 +1,60 @@
 diff -Naur createrepo_c-0.10.0/src/CMakeLists.txt createrepo_c-0.10.0.tpg/src/CMakeLists.txt
 --- createrepo_c-0.10.0/src/CMakeLists.txt	2016-01-05 12:46:28.000000000 +0000
-+++ createrepo_c-0.10.0.tpg/src/CMakeLists.txt	2016-03-09 23:36:11.185976540 +0000
-@@ -105,8 +105,9 @@
++++ createrepo_c-0.10.0.tpg/src/CMakeLists.txt	2016-03-11 01:50:57.699837854 +0000
+@@ -2,7 +2,6 @@
+      checksum.c
+      compression_wrapper.c
+      createrepo_shared.c
+-     deltarpms.c
+      dumper_thread.c
+      error.c
+      helpers.c
+@@ -17,8 +16,7 @@
+      sqlite.c
+      threads.c
+      updateinfo.c
+-     xml_dump.c
+-     xml_dump_deltapackage.c
++     xml_dump.c 
+      xml_dump_filelists.c
+      xml_dump_other.c
+      xml_dump_primary.c
+@@ -32,6 +30,13 @@
+      xml_parser_repomd.c
+      xml_parser_updateinfo.c)
+ 
++IF (DRPM_LIBRARY)
++SET (deltarpms_c_SRCS
++    deltarpms.c
++    xml_dump_deltapackage.c
++    )
++ENDIF
++
+ SET(headers
+     checksum.h
+     compression_wrapper.h
+@@ -56,7 +61,12 @@
+     xml_file.h
+     xml_parser.h)
+ 
+-ADD_LIBRARY(libcreaterepo_c SHARED ${createrepo_c_SRCS})
++IF (DRPM_LIBRARY)
++    ADD_LIBRARY(libcreaterepo_c SHARED ${createrepo_c_SRCS} ${deltarpms_c_SRCS})
++ELSE
++    ADD_LIBRARY(libcreaterepo_c SHARED ${createrepo_c_SRCS})
++ENDIF
++
+ TARGET_LINK_LIBRARIES(libcreaterepo_c ${BZIP2_LIBRARIES})
+ TARGET_LINK_LIBRARIES(libcreaterepo_c ${CURL_LIBRARY})
+ TARGET_LINK_LIBRARIES(libcreaterepo_c ${EXPAT_LIBRARIES})
+@@ -105,7 +115,9 @@
  
  CONFIGURE_FILE("createrepo_c.pc.cmake" "${CMAKE_SOURCE_DIR}/src/createrepo_c.pc" @ONLY)
  CONFIGURE_FILE("version.h.in" "${CMAKE_CURRENT_SOURCE_DIR}/version.h" @ONLY)
 -CONFIGURE_FILE("deltarpms.h.in" "${CMAKE_CURRENT_SOURCE_DIR}/deltarpms.h" @ONLY)
--
 +IF (DRPM_LIBRARY)
 +    CONFIGURE_FILE("deltarpms.h.in" "${CMAKE_CURRENT_SOURCE_DIR}/deltarpms.h" @ONLY)
 +ENDIF
- IF (CMAKE_SIZEOF_VOID_P MATCHES "8")
-     SET (LIB_SUFFIX "64")
- ENDIF (CMAKE_SIZEOF_VOID_P MATCHES "8")
-diff -Naur createrepo_c-0.10.0/tests/createrepo/CMakeLists.txt createrepo_c-0.10.0.tpg/tests/createrepo/CMakeLists.txt
---- createrepo_c-0.10.0/tests/createrepo/CMakeLists.txt	2016-01-05 12:46:28.000000000 +0000
-+++ createrepo_c-0.10.0.tpg/tests/createrepo/CMakeLists.txt	2016-03-09 23:36:11.185976540 +0000
-@@ -105,8 +105,9 @@
  
- CONFIGURE_FILE("createrepo_c.pc.cmake" "${CMAKE_SOURCE_DIR}/src/createrepo_c.pc" @ONLY)
- CONFIGURE_FILE("version.h.in" "${CMAKE_CURRENT_SOURCE_DIR}/version.h" @ONLY)
--CONFIGURE_FILE("deltarpms.h.in" "${CMAKE_CURRENT_SOURCE_DIR}/deltarpms.h" @ONLY)
--
-+IF (DRPM_LIBRARY)
-+    CONFIGURE_FILE("deltarpms.h.in" "${CMAKE_CURRENT_SOURCE_DIR}/deltarpms.h" @ONLY)
-+ENDIF
  IF (CMAKE_SIZEOF_VOID_P MATCHES "8")
      SET (LIB_SUFFIX "64")
- ENDIF (CMAKE_SIZEOF_VOID_P MATCHES "8")
