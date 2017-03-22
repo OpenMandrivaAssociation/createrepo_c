@@ -5,7 +5,7 @@
 Summary:	Creates a common metadata repository
 Name:		createrepo_c
 Version:	0.10.0
-Release:	2
+Release:	1
 License:	GPLv2+
 Group:		System/Configuration/Packaging
 URL:		https://github.com/rpm-software-management/createrepo_c
@@ -32,6 +32,7 @@ BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(python3)
 BuildRequires:	python-nose
 BuildRequires:	python-sphinx
+BuildRequires:	ninja
 Requires:	%{libname} =  %{EVRD}
 
 %description
@@ -72,14 +73,14 @@ Python 3 bindings for the createrepo_c library.
 %apply_patches
 
 %build
-%cmake -DPYTHON_DESIRED:str=3
-%make
+%cmake -DPYTHON_DESIRED:str=3 -DRPM5:BOOL=ON -G Ninja
+%ninja
 
 %install
-%makeinstall_std -C build
+%ninja_install -C build
 
 %files
-%{_sysconfdir}/bash_completion.d/createrepo_c.bash
+%{_datadir}/bash-completion/completions/*
 %{_bindir}/createrepo_c
 %{_bindir}/mergerepo_c
 %{_bindir}/modifyrepo_c
@@ -90,11 +91,10 @@ Python 3 bindings for the createrepo_c library.
 %{_mandir}/man8/sqliterepo_c.8.*
 
 %files -n %{libname}
-%{_libdir}/libcreaterepo_c.so.{major}*
+%{_libdir}/libcreaterepo_c.so.%{major}*
 
 %files -n %{develname}
 %doc COPYING
-%doc doc/html
 %dir %{_includedir}/createrepo_c
 %{_libdir}/libcreaterepo_c.so
 %{_libdir}/pkgconfig/createrepo_c.pc
