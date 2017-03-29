@@ -1,0 +1,36 @@
+From 22cbfe39802026b794a9a04039478738f0bf1270 Mon Sep 17 00:00:00 2001
+From: Jeff Johnson <n3npq@mac.com>
+Date: Wed, 29 Mar 2017 17:48:54 -0400
+Subject: [PATCH] - stub out the likely cause of a segfault.
+
+---
+ src/parsehdr.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/src/parsehdr.c b/src/parsehdr.c
+index c2949b5..744f2c8 100644
+--- a/src/parsehdr.c
++++ b/src/parsehdr.c
+@@ -1024,7 +1024,9 @@ cr_package_from_header(Header hdr,
+                                                           he->p.ptr,
+                                                           he->c);
+         }
++#ifdef	HACK
+ 	rpmheFree(he);
++#endif
+ 
+         he->tag = RPMTAG_SIGPGP;
+         if (headerGet(hdr, he, 0) && he->t == RPM_BIN_TYPE && he->c > 0) {
+@@ -1034,7 +1036,9 @@ cr_package_from_header(Header hdr,
+                                                           he->p.ptr,
+                                                           he->c);
+         }
++#ifdef	HACK
+ 	rpmheFree(he);
++#endif
+ #else	/* RPM5 */
+         rpmtd gpgtd = rpmtdNew();
+         rpmtd pgptd = rpmtdNew();
+-- 
+2.8.3
+

@@ -5,7 +5,7 @@
 Summary:	Creates a common metadata repository
 Name:		createrepo_c
 Version:	0.10.0
-Release:	2
+Release:	3
 License:	GPLv2+
 Group:		System/Configuration/Packaging
 URL:		https://github.com/rpm-software-management/createrepo_c
@@ -18,6 +18,8 @@ Patch1:		createrepo_c-PR70.patch
 Patch2:		createrepo_c-0.10.0-Add-RPM-5-support.patch
 # Fixup memory allocation issues with createrepo_c + RPM 5 (build on patch 2)
 Patch3:		createrepo_c-0.10.0-fix-rpm5.patch
+# https://github.com/rpm5/createrepo_c/issues/2
+Patch4:		0001-stub-out-the-likely-cause-of-a-segfault.patch
 BuildRequires:	cmake
 BuildRequires:	doxygen
 BuildRequires:	magic-devel
