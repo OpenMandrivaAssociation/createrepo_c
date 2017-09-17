@@ -5,7 +5,7 @@
 Summary:	Creates a common metadata repository
 Name:		createrepo_c
 Version:	0.10.0
-Release:	4
+Release:	5
 License:	GPLv2+
 Group:		System/Configuration/Packaging
 URL:		https://github.com/rpm-software-management/createrepo_c
@@ -20,6 +20,8 @@ Patch2:		createrepo_c-0.10.0-Add-RPM-5-support.patch
 Patch3:		createrepo_c-0.10.0-fix-rpm5.patch
 # Serialize rpmReadPackageFiles() with mutex for createrepo_c + RPM 5 (build on patch 3)
 Patch4:		createrepo_c-0.10.0-serialize-rpmReadPackageFiles-rpm5.patch
+# Attempt to handle DistEpoch in a semi-sane manner
+Patch5:		createrepo_c-handle-DistEpoch.patch
 
 BuildRequires:	cmake
 BuildRequires:	doxygen

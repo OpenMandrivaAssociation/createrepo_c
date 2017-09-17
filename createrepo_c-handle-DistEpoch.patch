@@ -1,0 +1,42 @@
+From 33498ad879d2e75b5128ba26ee91362c9cba537c Mon Sep 17 00:00:00 2001
+From: Neal Gompa <ngompa13@gmail.com>
+Date: Sun, 17 Sep 2017 22:31:50 +0000
+Subject: [PATCH] Attempt to handle DistEpoch semi-sanely in cr_str_to_evr()
+
+---
+ src/misc.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/src/misc.c b/src/misc.c
+index d8f3aae..1eb518a 100644
+--- a/src/misc.c
++++ b/src/misc.c
+@@ -102,6 +102,14 @@ cr_str_to_evr(const char *string, GStringChunk *chunk)
+     const char *ptr;  // These names are totally self explaining
+     const char *ptr2; //
+ 
++    // Check for DistEpoch and disable it in the string accordingly
++    gboolean detected_distepoch = FALSE;
++    char *distepoch = strrchr(string, ':');
++    if ((distepoch != 0) && (strchr(distepoch, '-') != 0)) {
++        // This is definitely DistEpoch, disable it!
++        *distepoch = '\0';
++        detected_distepoch = TRUE;
++    }
+ 
+     // Epoch
+     gboolean bad_epoch = FALSE;
+@@ -149,6 +157,10 @@ cr_str_to_evr(const char *string, GStringChunk *chunk)
+         }
+ 
+         // Release
++	if (detected_distepoch == TRUE) {
++            // If DistEpoch was detected before, let's restore it
++            *distepoch = ':';
++        }
+         size_t release_len = strlen(ptr2+1);
+         if (release_len) {
+             if (chunk) {
+-- 
+2.14.1
+
