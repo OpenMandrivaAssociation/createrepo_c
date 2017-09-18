@@ -1,0 +1,17 @@
+diff --git a/src/misc.c b/src/misc.c
+index 21656f3..3358376 100644
+--- a/src/misc.c
++++ b/src/misc.c
+@@ -160,10 +160,10 @@ cr_str_to_evr(const char *string, GStringChunk *chunk)
+         }
+ 
+         // Release
+-	if (detected_distepoch == TRUE) {
++	/* if (detected_distepoch == TRUE) {
+             // If DistEpoch was detected before, let's restore it
+             *distepoch = ':';
+-        }
++        }*/
+         size_t release_len = strlen(ptr2+1);
+         if (release_len) {
+             if (chunk) {

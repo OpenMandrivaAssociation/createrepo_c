@@ -23,6 +23,9 @@ Patch4:		createrepo_c-0.10.0-serialize-rpmReadPackageFiles-rpm5.patch
 # Attempt to handle DistEpoch in a semi-sane manner
 Patch5:		createrepo_c-handle-DistEpoch.patch
 
+# OpenMandriva-specific: Fully ignore DistEpoch
+Patch6:		createrepo_c-disable-distepoch.patch
+
 BuildRequires:	cmake
 BuildRequires:	doxygen
 BuildRequires:	magic-devel
