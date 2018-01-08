@@ -5,7 +5,7 @@
 Summary:	Creates a common metadata repository
 Name:		createrepo_c
 Version:	0.10.0
-Release:	6
+Release:	7
 License:	GPLv2+
 Group:		System/Configuration/Packaging
 URL:		https://github.com/rpm-software-management/createrepo_c
@@ -22,9 +22,11 @@ Patch3:		createrepo_c-0.10.0-fix-rpm5.patch
 Patch4:		createrepo_c-0.10.0-serialize-rpmReadPackageFiles-rpm5.patch
 # Attempt to handle DistEpoch in a semi-sane manner
 Patch5:		createrepo_c-handle-DistEpoch.patch
+# Properly handle Requires(missingok) as Recommends
+Patch6:		createrepo_c-identify-Reqmissingok.patch
 
 # OpenMandriva-specific: Fully ignore DistEpoch
-Patch6:		createrepo_c-disable-distepoch.patch
+Patch7:		createrepo_c-disable-distepoch.patch
 
 BuildRequires:	cmake
 BuildRequires:	doxygen
