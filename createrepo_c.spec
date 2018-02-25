@@ -28,8 +28,8 @@ Patch1001:	createrepo_c-disable-distepoch.patch
 BuildRequires:	cmake
 BuildRequires:	doxygen
 BuildRequires:	magic-devel
-BuildRequires:	zlib-devel
-BuildRequires:	bzip2-devel
+BuildRequires:	pkgconfig(zlib)
+BuildRequires:	pkgconfig(bzip2)
 BuildRequires:	pkgconfig(bash-completion)
 BuildRequires:	pkgconfig(rpm)
 BuildConflicts:	pkgconfig(rpm) >= 5
@@ -49,41 +49,38 @@ Requires:	%{libname} =  %{EVRD}
 C implementation of Createrepo. This utility will generate a common
 metadata repository from a directory of rpm packages
 
-
 %package -n %{libname}
-Summary:    Library for repodata manipulation
-Group:      System/Libraries
+Summary:	Library for repodata manipulation
+Group:		System/Libraries
 
 %description -n %{libname}
 Libraries for applications using the createrepo_c library
 for easy manipulation with a repodata.
 
-
 %package -n %{develname}
-Summary:    Library for repodata manipulation
-Group:      Development/C
-Requires:   %{libname} = %{EVRD}
+Summary:	Library for repodata manipulation
+Group:		Development/C
+Requires:	%{libname} = %{EVRD}
 
 %description -n %{develname}
 This package contains the createrepo_c C library and header files.
 These development files are for easy manipulation with a repodata.
 
 %package -n python-%{name}
-Summary:    Python 3 bindings for the createrepo_c library
-Group:      Development/Python
-Provides:   python3-%{name} = %{EVRD}
-Requires:   %{libname} = %{EVRD}
+Summary:	Python 3 bindings for the createrepo_c library
+Group:		Development/Python
+Provides:	python3-%{name} = %{EVRD}
+Requires:	%{libname} = %{EVRD}
 
 %description -n python-%{name}
 Python 3 bindings for the createrepo_c library.
-
 
 %prep
 %setup -q
 %apply_patches
 
 %build
-%cmake -DPYTHON_DESIRED:str=3 -DRPM5:BOOL=ON -G Ninja
+%cmake -DPYTHON_DESIRED:str=3 -G Ninja
 %ninja
 
 %install
