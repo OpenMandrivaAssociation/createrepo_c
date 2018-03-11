@@ -35,6 +35,7 @@ Patch1001:	createrepo_c-disable-distepoch.patch
 BuildRequires:	cmake
 BuildRequires:	doxygen
 BuildRequires:	magic-devel
+BuildRequires:	pkgconfig(popt)
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	pkgconfig(bzip2)
 BuildRequires:	pkgconfig(bash-completion)
