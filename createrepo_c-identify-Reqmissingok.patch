@@ -1,29 +1,27 @@
-From 8bd88edfefc1160a74e7748b3fa61763b5c91d7d Mon Sep 17 00:00:00 2001
+From f3039c59bb67d595a5969d8c79781c454f6bdc8b Mon Sep 17 00:00:00 2001
 From: Neal Gompa <ngompa13@gmail.com>
 Date: Sun, 7 Jan 2018 18:57:03 -0500
 Subject: [PATCH] Correctly identify Requires(missingok) dependencies as
  Recommends
 
 ---
- src/parsehdr.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ src/parsehdr.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
 diff --git a/src/parsehdr.c b/src/parsehdr.c
-index e99fb86..3a0948e 100644
+index 2f6a79e..e247618 100644
 --- a/src/parsehdr.c
 +++ b/src/parsehdr.c
-@@ -43,6 +43,10 @@
+@@ -31,6 +31,8 @@
  #define RPM_WEAK_DEPS_SUPPORT 1
  #endif
  
-+#ifdef  RPM5
 +#define RPMSENSE_MISSINGOK (1 << 19)
-+#endif
 +
  typedef enum DepType_e {
      DEP_PROVIDES,
      DEP_CONFLICTS,
-@@ -563,6 +567,10 @@ cr_package_from_header(Header hdr,
+@@ -411,6 +413,10 @@ cr_package_from_header(Header hdr,
                          pkg->obsoletes = g_slist_prepend(pkg->obsoletes, dependency);
                          break;
                      case DEP_REQUIRES:
@@ -35,5 +33,5 @@ index e99fb86..3a0948e 100644
  
                          // XXX: libc.so filtering ////////////////////////////
 -- 
-2.14.3
+2.15.1
 
