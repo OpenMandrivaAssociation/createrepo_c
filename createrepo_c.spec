@@ -37,7 +37,7 @@ BuildRequires:	doxygen
 BuildRequires:	magic-devel
 BuildRequires:	pkgconfig(popt)
 BuildRequires:	pkgconfig(zlib)
-BuildRequires:	pkgconfig(bzip2)
+BuildRequires:	bzip2-devel
 BuildRequires:	pkgconfig(bash-completion)
 BuildRequires:	pkgconfig(rpm)
 #BuildConflicts:	pkgconfig(rpm) >= 5
