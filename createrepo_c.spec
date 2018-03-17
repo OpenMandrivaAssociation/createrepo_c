@@ -40,7 +40,7 @@ BuildRequires:	pkgconfig(zlib)
 BuildRequires:	pkgconfig(bzip2)
 BuildRequires:	pkgconfig(bash-completion)
 BuildRequires:	pkgconfig(rpm)
-BuildConflicts:	pkgconfig(rpm) >= 5
+#BuildConflicts:	pkgconfig(rpm) >= 5
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(libcurl)
 BuildRequires:	pkgconfig(expat)
