@@ -48,6 +48,7 @@ BuildRequires:	pkgconfig(liblzma)
 BuildRequires:	pkgconfig(sqlite3)
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(python3)
+BuildRequires:	pkgconfig(libssl)
 BuildRequires:	python-nose
 BuildRequires:	python-sphinx
 BuildRequires:	ninja
