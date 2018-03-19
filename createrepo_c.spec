@@ -49,6 +49,7 @@ BuildRequires:	pkgconfig(sqlite3)
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(python3)
 BuildRequires:	pkgconfig(libssl)
+BuildRequires:	pkgconfig(icu-i18n)
 BuildRequires:	python-nose
 BuildRequires:	python-sphinx
 BuildRequires:	ninja
