@@ -11,19 +11,12 @@
 
 Summary:	Creates a common metadata repository
 Name:		createrepo_c
-Version:	0.10.0
-Release:	8
+Version:	0.11.0
+Release:	1
 License:	GPLv2+
 Group:		System/Configuration/Packaging
 URL:		https://github.com/rpm-software-management/createrepo_c
-Source0:	https://github.com/rpm-software-management/createrepo_c/archive/%{name}-%{version}.tar.gz
-
-# Patch from upstream to fix Prov/Req filtering rules, see mga#19509
-Patch0:		createrepo_c-PR70.patch
-
-# Properly handle Requires(missingok) as Recommends
-# Adapted from: https://github.com/rpm-software-management/createrepo_c/pull/84
-Patch100:	createrepo_c-identify-Reqmissingok.patch
+Source0:	https://github.com/rpm-software-management/createrepo_c/archive/%{version}.tar.gz
 
 # OpenMandriva specific patches for transitioning from RPM 5
 ## Attempt to handle DistEpoch in a semi-sane manner
