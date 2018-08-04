@@ -78,7 +78,7 @@ Requires:	%{libname} = %{EVRD}
 Python 3 bindings for the createrepo_c library.
 
 %prep
-%autosetup -1
+%autosetup -p1
 
 %build
 %cmake -DPYTHON_DESIRED:str=3 -G Ninja
