@@ -5,17 +5,11 @@
 Summary:	Creates a common metadata repository
 Name:		createrepo_c
 Version:	0.12.0
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		System/Configuration/Packaging
 URL:		https://github.com/rpm-software-management/createrepo_c
 Source0:	https://github.com/rpm-software-management/createrepo_c/archive/%{name}-%{version}.tar.gz
-
-# OpenMandriva specific patches for transitioning from RPM 5
-## Attempt to handle DistEpoch in a semi-sane manner
-Patch1000:	createrepo_c-handle-DistEpoch.patch
-## Fully ignore DistEpoch as we don't want it anymore
-Patch1001:	createrepo_c-disable-distepoch.patch
 
 BuildRequires:	cmake
 BuildRequires:	doxygen
