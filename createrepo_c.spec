@@ -76,10 +76,10 @@ Python 3 bindings for the createrepo_c library.
 
 %check
 # Compile C tests
-make tests
+#make tests
 
 # Run Python 3 tests
-make ARGS="-V" test
+#make ARGS="-V" test
 
 %files
 %{_datadir}/bash-completion/completions/*
