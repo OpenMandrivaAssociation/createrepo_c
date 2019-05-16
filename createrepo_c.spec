@@ -5,11 +5,13 @@
 Summary:	Creates a common metadata repository
 Name:		createrepo_c
 Version:	0.14.0
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		System/Configuration/Packaging
 URL:		https://github.com/rpm-software-management/createrepo_c
 Source0:	https://github.com/rpm-software-management/createrepo_c/archive/%{name}-%{version}.tar.gz
+# https://github.com/rpm-software-management/createrepo_c/issues/150
+Patch0:		createrepo_c-0.14.0-remove-libxml2.patch
 BuildRequires:	cmake
 BuildRequires:	doxygen
 BuildRequires:	magic-devel
@@ -19,7 +21,6 @@ BuildRequires:	pkgconfig(bzip2)
 BuildRequires:	pkgconfig(bash-completion)
 BuildRequires:	pkgconfig(rpm)
 BuildConflicts:	pkgconfig(rpm) >= 5
-BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(libcurl)
 BuildRequires:	pkgconfig(expat)
 BuildRequires:	pkgconfig(liblzma)
@@ -74,6 +75,13 @@ Python 3 bindings for the createrepo_c library.
 
 %install
 %ninja_install -C build
+
+%check
+# Compile C tests
+make tests
+
+# Run Python 3 tests
+make ARGS="-V" test
 
 %files
 %{_datadir}/bash-completion/completions/*
