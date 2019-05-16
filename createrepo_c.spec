@@ -34,7 +34,6 @@ BuildRequires:	pkgconfig(modulemd-2.0) >= 2.3.0
 BuildRequires:	python-nose
 BuildRequires:	python-sphinx
 BuildRequires:	ninja
-Requires:	%{libname} =  %{EVRD}
 
 %description
 C implementation of Createrepo. This utility will generate a common

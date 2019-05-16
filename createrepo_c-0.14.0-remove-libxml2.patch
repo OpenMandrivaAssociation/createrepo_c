@@ -1,6 +1,6 @@
 diff -Naur createrepo_c-0.14.0/CMakeLists.txt createrepo_c-0.14.0.tpg/CMakeLists.txt
 --- createrepo_c-0.14.0/CMakeLists.txt	2019-05-15 22:29:20.000000000 +0000
-+++ createrepo_c-0.14.0.tpg/CMakeLists.txt	2019-05-16 10:26:43.890227872 +0000
++++ createrepo_c-0.14.0.tpg/CMakeLists.txt	2019-05-16 10:51:19.745347240 +0000
 @@ -39,7 +39,6 @@
  find_package(GLIB2 REQUIRED)
  find_package(GTHREAD2 REQUIRED)
@@ -19,18 +19,7 @@ diff -Naur createrepo_c-0.14.0/CMakeLists.txt createrepo_c-0.14.0.tpg/CMakeLists
  
 diff -Naur createrepo_c-0.14.0/src/CMakeLists.txt createrepo_c-0.14.0.tpg/src/CMakeLists.txt
 --- createrepo_c-0.14.0/src/CMakeLists.txt	2019-05-15 22:29:20.000000000 +0000
-+++ createrepo_c-0.14.0.tpg/src/CMakeLists.txt	2019-05-16 10:27:09.350229931 +0000
-@@ -71,7 +71,6 @@
- TARGET_LINK_LIBRARIES(libcreaterepo_c ${GLIB2_LIBRARIES})
- TARGET_LINK_LIBRARIES(libcreaterepo_c ${Libmagic_LIBRARY})
- TARGET_LINK_LIBRARIES(libcreaterepo_c ${LIBMODULEMD_LIBRARIES})
--TARGET_LINK_LIBRARIES(libcreaterepo_c ${LIBXML2_LIBRARIES})
- TARGET_LINK_LIBRARIES(libcreaterepo_c ${LZMA_LIBRARIES})
- TARGET_LINK_LIBRARIES(libcreaterepo_c ${OPENSSL_LIBRARIES})
- TARGET_LINK_LIBRARIES(libcreaterepo_c ${RPMDB_LIBRARY})
-diff -Naur createrepo_c-0.14.0/tests/createrepo/CMakeLists.txt createrepo_c-0.14.0.tpg/tests/createrepo/CMakeLists.txt
---- createrepo_c-0.14.0/tests/createrepo/CMakeLists.txt	2019-05-15 22:29:20.000000000 +0000
-+++ createrepo_c-0.14.0.tpg/tests/createrepo/CMakeLists.txt	2019-05-16 10:27:09.350229931 +0000
++++ createrepo_c-0.14.0.tpg/src/CMakeLists.txt	2019-05-16 10:50:50.561344879 +0000
 @@ -71,7 +71,6 @@
  TARGET_LINK_LIBRARIES(libcreaterepo_c ${GLIB2_LIBRARIES})
  TARGET_LINK_LIBRARIES(libcreaterepo_c ${Libmagic_LIBRARY})
