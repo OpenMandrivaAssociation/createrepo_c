@@ -104,3 +104,4 @@ Python 3 bindings for the createrepo_c library.
 
 %files -n python-%{name}
 %{python3_sitearch}/createrepo_c/
+%{python3_sitearch}/createrepo_c-*.egg-info
