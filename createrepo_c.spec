@@ -4,12 +4,12 @@
 
 Summary:	Creates a common metadata repository
 Name:		createrepo_c
-Version:	0.14.3
+Version:	0.15.0
 Release:	1
 License:	GPLv2+
 Group:		System/Configuration/Packaging
 URL:		https://github.com/rpm-software-management/createrepo_c
-Source0:	https://github.com/rpm-software-management/createrepo_c/archive/%{name}-%{version}.tar.gz
+Source0:	https://github.com/rpm-software-management/createrepo_c/archive/%{version}.tar.gz
 BuildRequires:	cmake
 BuildRequires:	doxygen
 BuildRequires:	magic-devel
@@ -29,6 +29,7 @@ BuildRequires:	pkgconfig(python3)
 BuildRequires:	pkgconfig(libssl)
 BuildRequires:	pkgconfig(icu-i18n)
 BuildRequires:	pkgconfig(zck)
+BuildRequires:	pkgconfig(drpm)
 BuildRequires:	pkgconfig(modulemd-2.0) >= 2.3.0
 BuildRequires:	python-nose
 BuildRequires:	python-sphinx
