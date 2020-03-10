@@ -4,7 +4,7 @@
 
 Summary:	Creates a common metadata repository
 Name:		createrepo_c
-Version:	0.15.7
+Version:	0.15.8
 Release:	1
 License:	GPLv2+
 Group:		System/Configuration/Packaging
@@ -21,7 +21,6 @@ BuildRequires:	pkgconfig(rpm)
 BuildConflicts:	pkgconfig(rpm) >= 5
 BuildRequires:	pkgconfig(libcurl)
 BuildRequires:	pkgconfig(libxml-2.0)
-BuildRequires:	pkgconfig(expat)
 BuildRequires:	pkgconfig(liblzma)
 BuildRequires:	pkgconfig(sqlite3)
 BuildRequires:	pkgconfig(glib-2.0)
