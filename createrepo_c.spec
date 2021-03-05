@@ -4,7 +4,7 @@
 
 Summary:	Creates a common metadata repository
 Name:		createrepo_c
-Version:	0.17.0
+Version:	0.17.1
 Release:	1
 License:	GPLv2+
 Group:		System/Configuration/Packaging
