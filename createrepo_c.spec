@@ -4,7 +4,7 @@
 
 Summary:	Creates a common metadata repository
 Name:		createrepo_c
-Version:	0.17.1
+Version:	0.17.2
 Release:	1
 License:	GPLv2+
 Group:		System/Configuration/Packaging
@@ -68,7 +68,7 @@ Python 3 bindings for the createrepo_c library.
 %autosetup -p1
 
 %build
-%cmake -DPYTHON_DESIRED:str=3 -G Ninja -DWITH_LIBMODULEMD=ON -DWITH_ZCHUNK=ON
+%cmake -DWITH_LIBMODULEMD=ON -DWITH_ZCHUNK=ON -G Ninja
 %ninja_build
 
 %install
