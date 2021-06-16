@@ -4,7 +4,7 @@
 
 Summary:	Creates a common metadata repository
 Name:		createrepo_c
-Version:	0.17.2
+Version:	0.17.3
 Release:	1
 License:	GPLv2+
 Group:		System/Configuration/Packaging
@@ -30,7 +30,6 @@ BuildRequires:	pkgconfig(icu-i18n)
 BuildRequires:	pkgconfig(zck)
 BuildRequires:	pkgconfig(drpm)
 BuildRequires:	pkgconfig(modulemd-2.0) >= 2.3.0
-BuildRequires:	python-nose
 BuildRequires:	python-sphinx
 BuildRequires:	ninja
 
