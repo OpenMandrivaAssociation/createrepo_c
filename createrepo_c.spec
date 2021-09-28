@@ -4,7 +4,7 @@
 
 Summary:	Creates a common metadata repository
 Name:		createrepo_c
-Version:	0.17.4
+Version:	0.17.6
 Release:	1
 License:	GPLv2+
 Group:		System/Configuration/Packaging
@@ -86,10 +86,10 @@ Python 3 bindings for the createrepo_c library.
 %{_bindir}/mergerepo_c
 %{_bindir}/modifyrepo_c
 %{_bindir}/sqliterepo_c
-%{_mandir}/man8/createrepo_c.8.*
-%{_mandir}/man8/mergerepo_c.8.*
-%{_mandir}/man8/modifyrepo_c.8.*
-%{_mandir}/man8/sqliterepo_c.8.*
+%doc %{_mandir}/man8/createrepo_c.8.*
+%doc %{_mandir}/man8/mergerepo_c.8.*
+%doc %{_mandir}/man8/modifyrepo_c.8.*
+%doc %{_mandir}/man8/sqliterepo_c.8.*
 
 %files -n %{libname}
 %{_libdir}/libcreaterepo_c.so.%{major}*
