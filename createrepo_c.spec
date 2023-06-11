@@ -5,11 +5,16 @@
 Summary:	Creates a common metadata repository
 Name:		createrepo_c
 Version:	0.21.1
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		System/Configuration/Packaging
 URL:		https://github.com/rpm-software-management/createrepo_c
 Source0:	https://github.com/rpm-software-management/createrepo_c/archive/%{name}-%{version}.tar.gz
+# We hit this assert at times (maybe when there are really old
+# rpm5 packages left in the tree being replaced at last?)
+# Give some useful info and try to do the right thing
+# instead of aborting with assert.
+Patch0:		createrepo_c-0.21.1-debug-instead-of-assert.patch
 BuildRequires:	cmake
 BuildRequires:	doxygen
 BuildRequires:	magic-devel
