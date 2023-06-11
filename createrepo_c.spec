@@ -1,5 +1,6 @@
 %define major 0
-%define libname %mklibname %{name} %{major}
+%define libname %mklibname %{name}
+%define oldlibname %mklibname %{name} 0
 %define develname %mklibname %{name} -d
 
 Summary:	Creates a common metadata repository
@@ -45,6 +46,7 @@ metadata repository from a directory of rpm packages
 %package -n %{libname}
 Summary:	Library for repodata manipulation
 Group:		System/Libraries
+%rename %oldlibname
 
 %description -n %{libname}
 Libraries for applications using the createrepo_c library
