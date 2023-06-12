@@ -1,0 +1,96 @@
+diff -up createrepo_c-0.21.1/src/misc.c.2~ createrepo_c-0.21.1/src/misc.c
+--- createrepo_c-0.21.1/src/misc.c.2~	2023-04-04 11:30:43.000000000 +0100
++++ createrepo_c-0.21.1/src/misc.c	2023-06-12 17:22:04.850155934 +0100
+@@ -18,6 +18,7 @@
+  */
+ 
+ #define _XOPEN_SOURCE 500
++#define _GNU_SOURCE 1
+ 
+ #include <glib/gstdio.h>
+ #include <glib.h>
+@@ -27,6 +28,7 @@
+ #include <curl/curl.h>
+ #include <errno.h>
+ #include <ftw.h>
++#include <fcntl.h>
+ #include <rpm/rpmlib.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+@@ -390,11 +392,11 @@ cr_get_cleaned_href(const char *filepath
+ gboolean
+ cr_copy_file(const char *src, const char *in_dst, GError **err)
+ {
+-    size_t readed;
+-    char buf[BUFFER_SIZE];
+     _cleanup_free_ gchar *dst = NULL;
+-    _cleanup_file_fclose_ FILE *orig = NULL;
+-    _cleanup_file_fclose_ FILE *new  = NULL;
++    _cleanup_file_close_ int orig;
++    _cleanup_file_close_ int new;
++    int ret;
++    struct stat st;
+ 
+     assert(src);
+     assert(in_dst);
+@@ -407,7 +409,7 @@ cr_copy_file(const char *src, const char
+         dst = g_strdup(in_dst);
+ 
+     // Open src file
+-    if ((orig = fopen(src, "rb")) == NULL) {
++    if ((orig = open(src, O_RDONLY)) < 0) {
+         const gchar * fopen_error = g_strerror(errno);
+         g_debug("%s: Cannot open source file %s (%s)", __func__, src,
+                 fopen_error);
+@@ -416,8 +418,20 @@ cr_copy_file(const char *src, const char
+         return FALSE;
+     }
+ 
++    if (fstat(orig, &st) == -1) {
++        const gchar * fstat_error = g_strerror(errno);
++        g_debug("%s: Cannot stat source file %s (%s)", __func__, src,
++                fstat_error);
++        g_set_error(err, ERR_DOMAIN, CRE_IO,
++                    "Cannot stat file %s: %s", src, fstat_error);
++        return FALSE;
++    }
++    posix_fadvise(orig, 0, 0, POSIX_FADV_NOREUSE);
++    posix_fadvise(orig, 0, 0, POSIX_FADV_WILLNEED);
++    posix_fadvise(orig, 0, 0, POSIX_FADV_SEQUENTIAL);
++
+     // Open dst file
+-    if ((new = fopen(dst, "wb")) == NULL) {
++    if ((new = open(dst, O_CREAT|O_WRONLY|O_TRUNC, 0644)) == -1) {
+         const gchar * fopen_error = g_strerror(errno);
+         g_debug("%s: Cannot open destination file %s (%s)", __func__, dst,
+                 fopen_error);
+@@ -426,23 +440,15 @@ cr_copy_file(const char *src, const char
+         return FALSE;
+     }
+ 
+-    // Copy content from src -> dst
+-    while ((readed = fread(buf, 1, BUFFER_SIZE, orig)) > 0) {
+-        if (readed != BUFFER_SIZE && ferror(orig)) {
++    do {
++        ret = copy_file_range(orig, NULL, new, NULL, st.st_size, 0);
++	if (ret == -1) {
+             g_set_error(err, ERR_DOMAIN, CRE_IO,
+-                    "Error while read %s: %s", src, g_strerror(errno));
++                    "Error while copying %s to %s: %s", src, dst, g_strerror(errno));
+             return FALSE;
+         }
+-
+-        if (fwrite(buf, 1, readed, new) != readed) {
+-            const gchar * fwrite_error = g_strerror(errno);
+-            g_debug("%s: Error while copy %s -> %s (%s)", __func__, src,
+-                    dst, fwrite_error);
+-            g_set_error(err, ERR_DOMAIN, CRE_IO,
+-                    "Error while write %s: %s", dst, fwrite_error);
+-            return FALSE;
+-        }
+-    }
++	st.st_size -= ret;
++    } while(st.st_size > 0 && ret > 0);
+ 
+     return TRUE;
+ }

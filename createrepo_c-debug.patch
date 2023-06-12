@@ -1,0 +1,11 @@
+diff -up createrepo_c-0.21.1/src/dumper_thread.c.3~ createrepo_c-0.21.1/src/dumper_thread.c
+--- createrepo_c-0.21.1/src/dumper_thread.c.3~	2023-04-04 11:30:43.000000000 +0100
++++ createrepo_c-0.21.1/src/dumper_thread.c	2023-06-12 17:07:24.596778033 +0100
+@@ -645,6 +645,7 @@ cr_dumper_thread(gpointer data, gpointer
+     // Load package and gen XML metadata
+     if (!old_used) {
+         // Load package from file
++        g_message("*** looking at %s", task->full_path);
+         pkg = load_rpm(task->full_path, udata->checksum_type,
+                        udata->checksum_cachedir, location_href,
+                        location_base, udata->changelog_limit,

@@ -16,6 +16,8 @@ Source0:	https://github.com/rpm-software-management/createrepo_c/archive/%{name}
 # Give some useful info and try to do the right thing
 # instead of aborting with assert.
 Patch0:		createrepo_c-0.21.1-debug-instead-of-assert.patch
+Patch1:		createrepo_c-optimize-cr_copy_file.patch
+Patch2:		createrepo_c-debug.patch
 BuildRequires:	cmake
 BuildRequires:	doxygen
 BuildRequires:	magic-devel
