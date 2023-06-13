@@ -10,11 +10,11 @@ diff -up createrepo_c-0.21.1/src/createrepo_c.c.omv~ createrepo_c-0.21.1/src/cre
 +    //assert(a_loc->pkg->time_build != 0);
 +    //assert(b_loc->pkg->time_build != 0);
 +    if(a_loc->pkg->time_build == 0) {
-+	    fprintf(stderr, "%s %s-%s: Invalid 0 time_build in %s (while comparing to %s)\n", a_loc->pkg->name, a_loc->pkg->version, a_loc->pkg->release, a_loc->location, b_loc->location);
++	    g_critical("%s %s-%s: Invalid 0 time_build in %s (while comparing to %s)\n", a_loc->pkg->name, a_loc->pkg->version, a_loc->pkg->release, a_loc->location, b_loc->location);
 +	    a_loc->pkg->time_build = 1;
 +    }
 +    if(b_loc->pkg->time_build == 0) {
-+	    fprintf(stderr, "%s %s-%s: Invalid 0 time_build in %s (while comparing to %s)\n", b_loc->pkg->name, b_loc->pkg->version, b_loc->pkg->release, b_loc->location, a_loc->location);
++	    g_critical("%s %s-%s: Invalid 0 time_build in %s (while comparing to %s)\n", b_loc->pkg->name, b_loc->pkg->version, b_loc->pkg->release, b_loc->location, a_loc->location);
 +	    b_loc->pkg->time_build = 1;
 +    }
  

@@ -6,7 +6,7 @@
 Summary:	Creates a common metadata repository
 Name:		createrepo_c
 Version:	0.21.1
-Release:	2
+Release:	3
 License:	GPLv2+
 Group:		System/Configuration/Packaging
 URL:		https://github.com/rpm-software-management/createrepo_c
@@ -17,7 +17,19 @@ Source0:	https://github.com/rpm-software-management/createrepo_c/archive/%{name}
 # instead of aborting with assert.
 Patch0:		createrepo_c-0.21.1-debug-instead-of-assert.patch
 Patch1:		createrepo_c-optimize-cr_copy_file.patch
-Patch2:		createrepo_c-debug.patch
+# This makes createrepo_c too verbose, but is useful to debug
+# e.g. hangs while examining a specific package
+#Patch2:		createrepo_c-debug.patch
+# From upstream:
+# (Needed for binary diff support)
+%define __scm git
+BuildRequires:	git-core
+# Add zstd support
+Patch100:	https://github.com/rpm-software-management/createrepo_c/commit/7595b4fabc91340735dc7a5c2d801b56817520f1.patch
+# And unit tests for it
+Patch101:	https://github.com/rpm-software-management/createrepo_c/commit/b9a323cf08d79bf1be4a61b02fdb5392d1e33816.patch
+# And make it compile
+Patch102:	https://github.com/rpm-software-management/createrepo_c/commit/27918765f97d385b0bf7407fcefa85de27826b54.patch
 BuildRequires:	cmake
 BuildRequires:	doxygen
 BuildRequires:	magic-devel
@@ -36,7 +48,7 @@ BuildRequires:	pkgconfig(python)
 BuildRequires:	pkgconfig(libssl)
 BuildRequires:	pkgconfig(icu-i18n)
 BuildRequires:	pkgconfig(zck)
-BuildRequires:	pkgconfig(drpm)
+BuildRequires:	pkgconfig(libzstd)
 BuildRequires:	pkgconfig(modulemd-2.0) >= 2.3.0
 BuildRequires:	python-sphinx
 BuildRequires:	ninja
@@ -74,10 +86,15 @@ Python 3 bindings for the createrepo_c library.
 
 %prep
 %autosetup -p1
+%cmake \
+	-DWITH_LIBMODULEMD:BOOL=ON \
+	-DENABLE_DRPM:BOOL=OFF \
+	-DWITH_ZCHUNK:BOOL=ON \
+	-DWITH_ZSTD:BOOL=ON \
+	-G Ninja
 
 %build
-%cmake -DWITH_LIBMODULEMD=ON -DWITH_ZCHUNK=ON -G Ninja
-%ninja_build
+%ninja_build -C build
 
 %install
 %ninja_install -C build
