@@ -20,3 +20,18 @@ diff -up createrepo_c-0.21.1/src/createrepo_c.c.omv~ createrepo_c-0.21.1/src/cre
  
      // order by build time first
      int64_t result = a_loc->pkg->time_build - b_loc->pkg->time_build;
+diff -up createrepo_c-0.21.1/src/misc.c.omv~ createrepo_c-0.21.1/src/misc.c
+--- createrepo_c-0.21.1/src/misc.c.omv~	2023-06-14 21:19:24.209781866 +0200
++++ createrepo_c-0.21.1/src/misc.c	2023-06-14 21:26:16.485404842 +0200
+@@ -473,7 +473,10 @@ cr_compress_file_with_stat(const char *s
+     GError *tmp_err = NULL;
+ 
+     assert(src);
+-    assert(!err || *err == NULL);
++    if(err && *err) {
++        g_critical("cr_compress_file_with_stat called with preset error: %s: %d: %s", g_quark_to_string((*err)->domain), (*err)->code, (*err)->message);
++        g_clear_error(err);
++    }
+ 
+     const char *c_suffix = cr_compression_suffix(compression);
+ 
