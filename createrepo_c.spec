@@ -1,12 +1,12 @@
-%define major 0
+%define major 1
 %define libname %mklibname %{name}
 %define oldlibname %mklibname %{name} 0
 %define develname %mklibname %{name} -d
 
 Summary:	Creates a common metadata repository
 Name:		createrepo_c
-Version:	0.21.1
-Release:	4
+Version:	1.0.0
+Release:	1
 License:	GPLv2+
 Group:		System/Configuration/Packaging
 URL:		https://github.com/rpm-software-management/createrepo_c
@@ -20,16 +20,6 @@ Patch1:		createrepo_c-optimize-cr_copy_file.patch
 # This makes createrepo_c too verbose, but is useful to debug
 # e.g. hangs while examining a specific package
 #Patch2:		createrepo_c-debug.patch
-# From upstream:
-# (Needed for binary diff support)
-%define __scm git
-BuildRequires:	git-core
-# Add zstd support
-Patch100:	https://github.com/rpm-software-management/createrepo_c/commit/7595b4fabc91340735dc7a5c2d801b56817520f1.patch
-# And unit tests for it
-Patch101:	https://github.com/rpm-software-management/createrepo_c/commit/b9a323cf08d79bf1be4a61b02fdb5392d1e33816.patch
-# And make it compile
-Patch102:	https://github.com/rpm-software-management/createrepo_c/commit/27918765f97d385b0bf7407fcefa85de27826b54.patch
 BuildRequires:	cmake
 BuildRequires:	doxygen
 BuildRequires:	magic-devel
