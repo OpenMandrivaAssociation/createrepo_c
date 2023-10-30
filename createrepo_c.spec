@@ -5,7 +5,7 @@
 
 Summary:	Creates a common metadata repository
 Name:		createrepo_c
-Version:	1.0.0
+Version:	1.0.2
 Release:	1
 License:	GPLv2+
 Group:		System/Configuration/Packaging
@@ -22,7 +22,6 @@ Patch1:		createrepo_c-optimize-cr_copy_file.patch
 #Patch2:		createrepo_c-debug.patch
 BuildRequires:	cmake
 BuildRequires:	doxygen
-BuildRequires:	magic-devel
 BuildRequires:	pkgconfig(popt)
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	pkgconfig(bzip2)
