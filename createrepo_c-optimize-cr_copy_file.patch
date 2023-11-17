@@ -1,15 +1,16 @@
-diff -up createrepo_c-0.21.1/src/misc.c.2~ createrepo_c-0.21.1/src/misc.c
---- createrepo_c-0.21.1/src/misc.c.2~	2023-04-04 11:30:43.000000000 +0100
-+++ createrepo_c-0.21.1/src/misc.c	2023-06-12 17:22:04.850155934 +0100
-@@ -18,6 +18,7 @@
+diff -Naur createrepo_c-1.0.2/src/misc.c createrepo_c-1.0.2.tpg/src/misc.c
+--- createrepo_c-1.0.2/src/misc.c	2023-11-17 11:15:41.388788564 +0000
++++ createrepo_c-1.0.2.tpg/src/misc.c	2023-11-17 11:24:30.548979253 +0000
+@@ -17,6 +17,8 @@
+  * USA.
   */
  
- #define _XOPEN_SOURCE 500
 +#define _GNU_SOURCE 1
- 
++
  #include <glib/gstdio.h>
  #include <glib.h>
-@@ -27,6 +28,7 @@
+ #include <gio/gio.h>
+@@ -25,6 +27,7 @@
  #include <curl/curl.h>
  #include <errno.h>
  #include <ftw.h>
@@ -17,7 +18,7 @@ diff -up createrepo_c-0.21.1/src/misc.c.2~ createrepo_c-0.21.1/src/misc.c
  #include <rpm/rpmlib.h>
  #include <stdio.h>
  #include <stdlib.h>
-@@ -390,11 +392,11 @@ cr_get_cleaned_href(const char *filepath
+@@ -402,11 +405,11 @@
  gboolean
  cr_copy_file(const char *src, const char *in_dst, GError **err)
  {
@@ -33,7 +34,7 @@ diff -up createrepo_c-0.21.1/src/misc.c.2~ createrepo_c-0.21.1/src/misc.c
  
      assert(src);
      assert(in_dst);
-@@ -407,7 +409,7 @@ cr_copy_file(const char *src, const char
+@@ -419,7 +422,7 @@
          dst = g_strdup(in_dst);
  
      // Open src file
@@ -42,7 +43,7 @@ diff -up createrepo_c-0.21.1/src/misc.c.2~ createrepo_c-0.21.1/src/misc.c
          const gchar * fopen_error = g_strerror(errno);
          g_debug("%s: Cannot open source file %s (%s)", __func__, src,
                  fopen_error);
-@@ -416,8 +418,20 @@ cr_copy_file(const char *src, const char
+@@ -428,8 +431,20 @@
          return FALSE;
      }
  
@@ -64,7 +65,7 @@ diff -up createrepo_c-0.21.1/src/misc.c.2~ createrepo_c-0.21.1/src/misc.c
          const gchar * fopen_error = g_strerror(errno);
          g_debug("%s: Cannot open destination file %s (%s)", __func__, dst,
                  fopen_error);
-@@ -426,23 +440,15 @@ cr_copy_file(const char *src, const char
+@@ -438,24 +453,15 @@
          return FALSE;
      }
  
@@ -73,7 +74,7 @@ diff -up createrepo_c-0.21.1/src/misc.c.2~ createrepo_c-0.21.1/src/misc.c
 -        if (readed != BUFFER_SIZE && ferror(orig)) {
 +    do {
 +        ret = copy_file_range(orig, NULL, new, NULL, st.st_size, 0);
-+	if (ret == -1) {
++        if (ret == -1) {
              g_set_error(err, ERR_DOMAIN, CRE_IO,
 -                    "Error while read %s: %s", src, g_strerror(errno));
 +                    "Error while copying %s to %s: %s", src, dst, g_strerror(errno));
@@ -89,8 +90,8 @@ diff -up createrepo_c-0.21.1/src/misc.c.2~ createrepo_c-0.21.1/src/misc.c
 -            return FALSE;
 -        }
 -    }
-+	st.st_size -= ret;
+-
++        st.st_size -= ret;
 +    } while(st.st_size > 0 && ret > 0);
- 
      return TRUE;
  }
