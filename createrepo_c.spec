@@ -20,6 +20,7 @@ Patch1:		createrepo_c-optimize-cr_copy_file.patch
 # This makes createrepo_c too verbose, but is useful to debug
 # e.g. hangs while examining a specific package
 #Patch2:		createrepo_c-debug.patch
+Patch100:	https://patch-diff.githubusercontent.com/raw/rpm-software-management/createrepo_c/pull/405.patch
 BuildRequires:	cmake
 BuildRequires:	doxygen
 BuildRequires:	pkgconfig(popt)
@@ -31,7 +32,7 @@ BuildConflicts:	pkgconfig(rpm) >= 5
 BuildRequires:	pkgconfig(libcurl)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(liblzma)
-BuildRequires:	pkgconfig(sqlite3)
+BuildRequires:	pkgconfig(sqlite3) >= 3.6.18
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(python)
 BuildRequires:	pkgconfig(libssl)
