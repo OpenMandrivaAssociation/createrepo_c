@@ -6,7 +6,7 @@
 Summary:	Creates a common metadata repository
 Name:		createrepo_c
 Version:	1.0.2
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		System/Configuration/Packaging
 URL:		https://github.com/rpm-software-management/createrepo_c
@@ -28,7 +28,6 @@ BuildRequires:	pkgconfig(zlib)
 BuildRequires:	pkgconfig(bzip2)
 BuildRequires:	pkgconfig(bash-completion)
 BuildRequires:	pkgconfig(rpm)
-BuildConflicts:	pkgconfig(rpm) >= 5
 BuildRequires:	pkgconfig(libcurl)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(liblzma)
