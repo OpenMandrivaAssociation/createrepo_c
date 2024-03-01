@@ -5,8 +5,8 @@
 
 Summary:	Creates a common metadata repository
 Name:		createrepo_c
-Version:	1.0.2
-Release:	2
+Version:	1.0.4
+Release:	1
 License:	GPLv2+
 Group:		System/Configuration/Packaging
 URL:		https://github.com/rpm-software-management/createrepo_c
@@ -20,7 +20,6 @@ Patch1:		createrepo_c-optimize-cr_copy_file.patch
 # This makes createrepo_c too verbose, but is useful to debug
 # e.g. hangs while examining a specific package
 #Patch2:		createrepo_c-debug.patch
-Patch100:	https://patch-diff.githubusercontent.com/raw/rpm-software-management/createrepo_c/pull/405.patch
 BuildRequires:	cmake
 BuildRequires:	doxygen
 BuildRequires:	pkgconfig(popt)
