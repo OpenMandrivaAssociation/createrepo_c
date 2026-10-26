@@ -20,6 +20,8 @@ Patch1:		createrepo_c-optimize-cr_copy_file.patch
 # This makes createrepo_c too verbose, but is useful to debug
 # e.g. hangs while examining a specific package
 #Patch2:		createrepo_c-debug.patch
+# rpm 6 removed the RPMTAG_HDRID alias of RPMTAG_SHA1HEADER.
+Patch3:		createrepo_c-rpm6-hdrid.patch
 BuildRequires:	cmake
 BuildRequires:	doxygen
 BuildRequires:	pkgconfig(popt)

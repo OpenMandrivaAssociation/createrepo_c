@@ -1,0 +1,11 @@
+--- createrepo_c-1.0.4/src/parsehdr.c	2026-10-26 16:21:42.453096120 +0100
++++ createrepo_c-1.0.4/src/parsehdr.c	2026-10-26 16:21:42.453170290 +0100
+@@ -664,7 +664,7 @@
+ 
+     if (hdrrflags & CR_HDRR_LOADHDRID)
+         pkg->hdrid = cr_safe_string_chunk_insert(pkg->chunk,
+-                                                 headerGetString(hdr, RPMTAG_HDRID));
++                                                 headerGetString(hdr, RPMTAG_SHA1HEADER));
+ 
+     if (hdrrflags & CR_HDRR_LOADSIGNATURES) {
+         rpmtd gpgtd = rpmtdNew();
