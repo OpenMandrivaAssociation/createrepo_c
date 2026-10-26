@@ -35,6 +35,7 @@ BuildRequires:	pkgconfig(liblzma)
 BuildRequires:	pkgconfig(sqlite3) >= 3.6.18
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(python)
+BuildRequires:	python%{pyver}dist(setuptools)
 BuildRequires:	pkgconfig(libssl)
 BuildRequires:	pkgconfig(icu-i18n)
 BuildRequires:	pkgconfig(zck)
