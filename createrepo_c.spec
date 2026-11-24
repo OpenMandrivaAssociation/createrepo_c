@@ -5,12 +5,12 @@
 
 Summary:	Creates a common metadata repository
 Name:		createrepo_c
-Version:	1.0.4
-Release:	4
+Version:	1.2.6
+Release:	1
 License:	GPLv2+
 Group:		System/Configuration/Packaging
 URL:		https://github.com/rpm-software-management/createrepo_c
-Source0:	https://github.com/rpm-software-management/createrepo_c/archive/%{name}-%{version}.tar.gz
+Source0:	https://github.com/rpm-software-management/createrepo_c/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 # We hit this assert at times (maybe when there are really old
 # rpm5 packages left in the tree being replaced at last?)
 # Give some useful info and try to do the right thing
@@ -20,8 +20,6 @@ Patch1:		createrepo_c-optimize-cr_copy_file.patch
 # This makes createrepo_c too verbose, but is useful to debug
 # e.g. hangs while examining a specific package
 #Patch2:		createrepo_c-debug.patch
-# rpm 6 removed the RPMTAG_HDRID alias of RPMTAG_SHA1HEADER.
-Patch3:		createrepo_c-rpm6-hdrid.patch
 BuildRequires:	cmake
 BuildRequires:	doxygen
 BuildRequires:	pkgconfig(popt)
@@ -35,13 +33,11 @@ BuildRequires:	pkgconfig(liblzma)
 BuildRequires:	pkgconfig(sqlite3) >= 3.6.18
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(python)
-BuildRequires:	python%{pyver}dist(setuptools)
 BuildRequires:	pkgconfig(libssl)
 BuildRequires:	pkgconfig(icu-i18n)
 BuildRequires:	pkgconfig(zck)
 BuildRequires:	pkgconfig(libzstd)
 BuildRequires:	pkgconfig(modulemd-2.0) >= 2.3.0
-BuildRequires:	python-sphinx
 BuildRequires:	ninja
 
 %description
@@ -77,11 +73,13 @@ Python 3 bindings for the createrepo_c library.
 
 %prep
 %autosetup -p1
+# Historical cooker packages are still checksummed with SHA-1 or MD5.
+# Upstream defaults WITH_LEGACY_HASHES off and then refuses those RPMs.
 %cmake \
 	-DWITH_LIBMODULEMD:BOOL=ON \
 	-DENABLE_DRPM:BOOL=OFF \
 	-DWITH_ZCHUNK:BOOL=ON \
-	-DWITH_ZSTD:BOOL=ON \
+	-DWITH_LEGACY_HASHES:BOOL=ON \
 	-G Ninja
 
 %build
@@ -120,4 +118,4 @@ Python 3 bindings for the createrepo_c library.
 
 %files -n python-%{name}
 %{python3_sitearch}/createrepo_c/
-%{python3_sitearch}/createrepo_c-*.egg-info
+%{python3_sitearch}/createrepo_c-*.dist-info

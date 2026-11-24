@@ -1,6 +1,5 @@
-diff -Naur createrepo_c-1.0.2/src/misc.c createrepo_c-1.0.2.tpg/src/misc.c
---- createrepo_c-1.0.2/src/misc.c	2023-11-17 11:15:41.388788564 +0000
-+++ createrepo_c-1.0.2.tpg/src/misc.c	2023-11-17 11:24:30.548979253 +0000
+--- createrepo_c-1.2.6/src/misc.c
++++ createrepo_c-1.2.6.omv/src/misc.c
 @@ -17,6 +17,8 @@
   * USA.
   */
@@ -10,15 +9,16 @@ diff -Naur createrepo_c-1.0.2/src/misc.c createrepo_c-1.0.2.tpg/src/misc.c
  #include <glib/gstdio.h>
  #include <glib.h>
  #include <gio/gio.h>
-@@ -25,6 +27,7 @@
+@@ -25,6 +27,8 @@
  #include <curl/curl.h>
  #include <errno.h>
  #include <ftw.h>
 +#include <fcntl.h>
- #include <rpm/rpmlib.h>
- #include <stdio.h>
- #include <stdlib.h>
-@@ -402,11 +405,11 @@
++#include <sys/stat.h>
+ #ifdef HAVE_RPM_RPMVER_H
+ #include <rpm/rpmver.h>
+ #else
+@@ -408,11 +412,11 @@
  gboolean
  cr_copy_file(const char *src, const char *in_dst, GError **err)
  {
@@ -27,14 +27,14 @@ diff -Naur createrepo_c-1.0.2/src/misc.c createrepo_c-1.0.2.tpg/src/misc.c
      _cleanup_free_ gchar *dst = NULL;
 -    _cleanup_file_fclose_ FILE *orig = NULL;
 -    _cleanup_file_fclose_ FILE *new  = NULL;
-+    _cleanup_file_close_ int orig;
-+    _cleanup_file_close_ int new;
++    _cleanup_file_close_ int orig = -1;
++    _cleanup_file_close_ int new = -1;
 +    int ret;
 +    struct stat st;
  
      assert(src);
      assert(in_dst);
-@@ -419,7 +422,7 @@
+@@ -425,7 +429,7 @@
          dst = g_strdup(in_dst);
  
      // Open src file
@@ -43,7 +43,7 @@ diff -Naur createrepo_c-1.0.2/src/misc.c createrepo_c-1.0.2.tpg/src/misc.c
          const gchar * fopen_error = g_strerror(errno);
          g_debug("%s: Cannot open source file %s (%s)", __func__, src,
                  fopen_error);
-@@ -428,8 +431,20 @@
+@@ -434,8 +438,20 @@
          return FALSE;
      }
  
@@ -65,7 +65,7 @@ diff -Naur createrepo_c-1.0.2/src/misc.c createrepo_c-1.0.2.tpg/src/misc.c
          const gchar * fopen_error = g_strerror(errno);
          g_debug("%s: Cannot open destination file %s (%s)", __func__, dst,
                  fopen_error);
-@@ -438,24 +453,15 @@
+@@ -444,24 +460,15 @@
          return FALSE;
      }
  
@@ -95,3 +95,4 @@ diff -Naur createrepo_c-1.0.2/src/misc.c createrepo_c-1.0.2.tpg/src/misc.c
 +    } while(st.st_size > 0 && ret > 0);
      return TRUE;
  }
+ 
